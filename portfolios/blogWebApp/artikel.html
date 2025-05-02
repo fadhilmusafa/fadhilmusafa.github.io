@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berita - Tempoe Doelu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+    }
+  </style>
+</head>
+<body class="bg-[#DBDBDB] text-[#706D54]">
+  <header class="bg-[#A08963] p-6 shadow-md">
+    <h1 class="text-4xl md:text-5xl font-bold text-center tracking-widest">Tempoe Doelu</h1>
+    <p class="text-center text-sm italic">Menyusuri Jejak Sejarah Bangsa</p>
+  </header>
+
+  <main id="articleContent" class="max-w-4xl mx-auto p-6 bg-white mt-6 rounded-xl shadow-md">
+    <!-- Konten artikel akan dimuat lewat JavaScript -->
+
+
+    </main>
+       <!-- Kolom Komentar -->
+       <div class="mt-12 bg-white p-6 rounded-lg shadow-md">
+        <h3 class="text-xl font-bold mb-4">Tinggalkan Komentar</h3>
+        <form id="comment-form" class="space-y-4">
+          <div>
+            <label for="nama" class="block font-semibold mb-1">Nama</label>
+            <input type="text" id="nama" name="nama" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A08963]">
+          </div>
+          <div>
+            <label for="komentar" class="block font-semibold mb-1">Komentar</label>
+            <textarea id="komentar" name="komentar" rows="4" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#A08963]"></textarea>
+          </div>
+          <button type="submit" class="bg-[#A08963] text-white px-4 py-2 rounded hover:bg-[#8c7855]">Kirim</button>
+        </form>
+  
+        <div id="daftar-komentar" class="mt-8">
+          <h4 class="text-lg font-semibold mb-2">Komentar Terbaru</h4>
+          <ul class="space-y-4" id="list-komentar"></ul>
+        </div>
+      </div>
+
+  <footer class="text-center py-6 text-sm bg-[#A08963] text-white mt-8">
+    <p>&copy; 2025 Tempoe Doelu. Semua hak cipta dilindungi. Dibangun dengan semangat sejarah.</p>
+  </footer>
+
+  <!-- Pindahkan script JavaScript ke bawah sebelum penutupan body -->
+  <script>
+    const articles = {
+      proklamasi: {
+        title: "Proklamasi Kemerdekaan Indonesia",
+        image: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Indonesia_declaration_of_independence_17_August_1945.jpg",
+        author: "Tempoe Doelu",
+        paragraphs: [
+          "Pada 17 Agustus 1945, Soekarno dan Mohammad Hatta atas nama bangsa Indonesia memproklamasikan kemerdekaan Indonesia. Teks proklamasi dibacakan di Jl. Pegangsaan Timur No. 56, Jakarta. Ini menjadi momen penting yang menandai berdirinya Republik Indonesia setelah lebih dari 300 tahun penjajahan.",
+          "Proklamasi ini disambut antusias oleh rakyat Indonesia di seluruh pelosok negeri. Berbagai daerah segera mengibarkan bendera Merah Putih sebagai simbol kemerdekaan. Radio dan surat kabar segera menyebarluaskan berita ini, meskipun sempat mendapat sensor dari pihak Jepang.",
+          "Dengan adanya proklamasi ini, perjuangan rakyat Indonesia memasuki babak baru: mempertahankan kemerdekaan dan membangun negara yang berdaulat, adil, dan makmur."
+        ]
+      },
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const content = document.getElementById("articleContent");
+
+    if (articles[id]) {
+      const article = articles[id];
+      content.innerHTML = `
+        <img src="${article.image}" alt="${article.title}" class="rounded-md mb-6">
+        <h2 class="text-3xl font-bold mb-2">${article.title}</h2>
+        <p class="text-sm text-[#A08963] mb-4">Ditulis oleh ${article.author}</p>
+        ${article.paragraphs.map(p => `<p class="mb-4">${p}</p>`).join("")}
+        <a href="index.html" class="inline-block mt-6 text-[#A08963] underline">Kembali ke Beranda</a>
+      `;
+    } else {
+      content.innerHTML = `
+        <h2 class="text-2xl font-bold mb-2">Artikel tidak ditemukan</h2>
+        <p class="mb-4">Mohon maaf, artikel yang Anda cari tidak tersedia.</p>
+        <a href="index.html" class="inline-block mt-6 text-[#A08963] underline">Kembali ke Beranda</a>
+      `;
+    }
+
+    document.getElementById('comment-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value.trim();
+      const komentar = document.getElementById('komentar').value.trim();
+
+      if (nama && komentar) {
+        const list = document.getElementById('list-komentar');
+        const item = document.createElement('li');
+        item.className = "bg-gray-100 p-3 rounded shadow";
+        item.innerHTML = `<strong>${nama}</strong><p>${komentar}</p>`;
+        list.prepend(item);
+        document.getElementById('comment-form').reset();
+      }
+    });
+  </script>
+</body>
+</html>
