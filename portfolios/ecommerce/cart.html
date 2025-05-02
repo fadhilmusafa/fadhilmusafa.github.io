@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id" class="">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keranjang Belanja</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-[#0f0f0f] text-white dark:bg-gray-100 dark:text-gray-800">
+  <nav class="bg-[#0f178a] text-white p-4 dark:bg-gray-100 dark:text-gray-800 shadow-lg">
+    <a href="index.html" class="text-xl font-bold">← Kembali ke Beranda</a>
+  </nav>
+  <div class="max-w-3xl mx-auto mt-10 p-6 bg-[#0f178a] dark:bg-gray-100 text-white dark:text-gray-800 rounded-xl shadow">
+    <h1 class="text-2xl font-bold mb-4">Keranjang Anda</h1>
+    <ul id="cart-list" class="divide-y divide-gray-700 dark:divide-gray-300"></ul>
+    <div class="mt-6 text-right">
+      <strong>Total: Rp<span id="total-price">0</span></strong>
+    </div>
+  </div>
+
+  <script>
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const list = document.getElementById('cart-list');
+      const total = document.getElementById('total-price');
+      let html = '';
+      let sum = 0;
+
+      cart.forEach(item => {
+        sum += item.price * item.quantity;
+        html += `
+          <li class="py-4 flex justify-between items-center">
+            <div>
+              <h2 class="font-semibold">${item.name}</h2>
+              <p class="text-sm text-gray-400 dark:text-gray-600">Rp${item.price} x ${item.quantity}</p>
+            </div>
+            <button onclick="removeItem('${item.id}')" class="text-red-500 hover:underline">Hapus</button>
+          </li>
+        `;
+      });
+
+      list.innerHTML = html || '<p class="text-gray-500 dark:text-gray-500">Keranjang kosong.</p>';
+      total.innerText = sum;
+    }
+
+    function removeItem(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart = cart.filter(item => item.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    document.addEventListener('DOMContentLoaded', renderCart);
+  </script>
+</body>
+</html>

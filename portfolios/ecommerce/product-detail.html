@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detail Produk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet"/>
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .thumbnail:hover { border: 2px solid #3b82f6; }
+
+    /* Additional styles for modal */
+    #successModal {
+      display: none; /* Keep hidden by default */
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5); /* Dark background for overlay */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+</head>
+<body class="text-white bg-gradient-to-br from-[#0f0f0f] to-[#1f2937] dark:bg-gray-50 dark:text-gray-900">
+
+  <div class="max-w-6xl mx-auto py-10 px-4">
+    <a href="index.html" class="text-blue-400 hover:underline">← Kembali ke Beranda</a>
+
+    <div id="product-detail" class="mt-10 grid md:grid-cols-2 gap-10 items-start bg-[#0f0f0f] dark:bg-[#0f0f0f] p-8 rounded-xl shadow-xl text-white dark:white" data-aos="fade-up"></div>
+
+    <!-- Section Ulasan -->
+    <div class="mt-16 bg-[#0f178a] dark:bg-[#0f178a] p-8 rounded-xl shadow text-white dark:text-white" data-aos="fade-up">
+      <h2 class="text-2xl font-bold mb-4">Ulasan Pengguna</h2>
+
+      <!-- Form Review -->
+      <form onsubmit="submitReview(event)" class="space-y-4">
+        <div>
+          <label for="reviewer" class="block mb-1">Nama</label>
+          <input id="reviewer" type="text" required class="w-full p-2 rounded text-black border border-gray-300">
+        </div>
+        <div>
+          <label for="review" class="block mb-1">Ulasan</label>
+          <textarea id="review" rows="3" required class="w-full p-2 rounded text-black border border-gray-300"></textarea>
+        </div>
+        <div>
+          <label for="rating" class="block mb-1">Rating</label>
+          <select id="rating" required class="w-full p-2 rounded text-black border border-gray-300">
+            <option value="">Pilih rating</option>
+            <option value="5">⭐⭐⭐⭐⭐</option>
+            <option value="4">⭐⭐⭐⭐</option>
+            <option value="3">⭐⭐⭐</option>
+            <option value="2">⭐⭐</option>
+            <option value="1">⭐</option>
+          </select>
+        </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full text-white font-semibold">Kirim Ulasan</button>
+      </form>
+
+      <!-- Daftar Ulasan -->
+      <div id="reviews" class="mt-8 space-y-4"></div>
+    </div>
+  </div>
+
+  <script>
+    const id = new URLSearchParams(window.location.search).get("id") || "Elektronik-1";
+    const [category, number] = id.split("-");
+    const price = 100000 + parseInt(number) * 5000;
+    const rating = (3.5 + (parseInt(number) % 2)).toFixed(1);
+
+    const imgList = [
+      "https://img.freepik.com/free-psd/shoes-sale-social-media-post-square-banner-template-design_505751-4888.jpg",
+      "https://img.freepik.com/free-photo/stylish-shoes_1203-7531.jpg",
+      "https://img.freepik.com/free-photo/modern-shoes_1203-8745.jpg"
+    ];
+
+    let currentImage = imgList[0];
+
+    function renderProductDetail() {
+      document.getElementById("product-detail").innerHTML = `
+        <div>
+          <img id="main-img" src="${currentImage}" class="w-full rounded-xl shadow-lg mb-4" />
+          <div class="flex gap-3">
+            ${imgList.map(src => `
+              <img src="${src}" onclick="switchImage('${src}')" class="w-20 h-20 rounded cursor-pointer thumbnail border-2 border-transparent">
+            `).join("")}
+          </div>
+          <span class="inline-block mt-4 bg-yellow-300 text-black px-3 py-1 rounded-full text-sm font-medium">Kategori: ${category}</span>
+        </div>
+        <div>
+          <h1 class="text-4xl font-extrabold mb-2">${category} Produk ${number}</h1>
+          <div class="flex items-center gap-2 mb-4">
+            <span class="text-yellow-400 text-xl">★ ${rating}</span>
+            <span class="text-sm text-gray-400 dark:text-gray-600">(200 ulasan)</span>
+          </div>
+          <p class="mb-4 text-white dark:text-white">
+            Produk unggulan dari kategori ${category} dengan desain modern dan teknologi terbaru. Sangat cocok untuk kebutuhan sehari-hari Anda.
+          </p>
+          <ul class="list-disc ml-6 text-sm text-white dark:text-white mb-6">
+            <li>Garansi 1 tahun</li>
+            <li>Material premium</li>
+            <li>Stok terbatas</li>
+          </ul>
+
+          <p class="text-2xl font-bold text-green-400 dark:text-green-700 mb-4">Rp ${price.toLocaleString()}</p>
+          <div class="flex items-center gap-3 mb-6">
+            <label for="qty" class="font-semibold">Jumlah:</label>
+            <input id="qty" type="number" min="1" value="1" class="w-16 p-1 text-center border rounded text-black dark:text-black">
+          </div>
+          <!-- Tombol Tambah ke Keranjang -->
+          <button onclick="addToCart('${id}')" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full text-white font-semibold transition duration-200 w-full mb-3">+ Tambah ke Keranjang</button>
+        
+          <!-- Tombol Lihat Keranjang -->
+          <a href="cart.html" class="block text-center bg-gray-700 hover:bg-gray-800 dark:bg-blue-600 dark:hover:bg-blue-700 text-white dark:white-black font-semibold px-6 py-3 rounded-full transition duration-200 w-full">
+            <span id="cart-count">0</span>  <!-- Ini untuk menampilkan jumlah barang -->🛒 Lihat Keranjang
+          </a>
+      `;
+    }
+
+    function switchImage(src) {
+      currentImage = src;
+      document.getElementById("main-img").src = src;
+    }
+
+    function addToCart(productId) {
+      const qtyInput = document.getElementById('qty');
+      const quantity = parseInt(qtyInput?.value || 1);
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.id === productId);
+
+      if (existing) {
+        existing.quantity += quantity;
+      } else {
+        cart.push({
+          id: productId,
+          name: `Produk ${productId}`,
+          price: 100000,
+          quantity: quantity
+        });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();  // Call to update the cart count
+
+      // Tampilkan popup modal
+      showModal();
+    }
+
+    // Update cart count function
+    function updateCartCount() {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      let totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+      document.getElementById("cart-count").innerText = totalItems;
+    }
+
+    function showModal() {
+      const modal = document.getElementById("successModal");
+      modal.style.display = 'flex';  // Menampilkan modal
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("successModal");
+      modal.style.display = 'none';  // Menyembunyikan modal
+    }
+
+    function submitReview(event) {
+      event.preventDefault();
+      const name = document.getElementById("reviewer").value;
+      const text = document.getElementById("review").value;
+      const stars = document.getElementById("rating").value;
+
+      const reviewHTML = `
+      <div class="bg-[#0f178a] dark:bg-gray-100 p-8 rounded-xl shadow text-white dark:text-gray-800">
+          <p class="font-semibold">${name}</p>
+          <p class="text-yellow-500 text-sm mb-1">${"⭐".repeat(stars)}</p>
+          <p class="text-sm">${text}</p>
+        </div>
+      `;
+      document.getElementById("reviews").insertAdjacentHTML("afterbegin", reviewHTML);
+      event.target.reset();
+    }
+
+    renderProductDetail();
+  </script>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>AOS.init();</script>
+
+  <!-- Modal Popup -->
+  <div id="successModal" class="modal-overlay hidden">
+    <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-xl text-center max-w-sm w-full">
+      <h2 class="text-2xl font-semibold text-green-600">Produk Berhasil Ditambahkan!</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-4">Produk telah berhasil ditambahkan ke keranjang Anda.</p>
+      <button onclick="closeModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full">Tutup</button>
+    </div>
+  </div>
+</body>
+</html>

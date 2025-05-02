@@ -1,40 +1,225 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portofolio: E-Commerce</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Futuristik</title>
+  <script>
+    // Set default theme to dark if not set yet
+    if (localStorage.getItem('theme') === 'dark' || !localStorage.getItem('theme')) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+
+    // Function to manage cart
+    function addToCart(productId) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const product = {
+        id: productId,
+        name: `Produk ${productId}`,
+        price: 100000, // Example price
+        quantity: 1
+      };
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+    }
+
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartCount = cart.length;
+      document.getElementById('cart-count').innerText = cartCount;
+    }
+
+    // Initialize cart count
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCartCount();
+    });
+  </script>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet" />
   <style>
     body {
-      background: linear-gradient(135deg, #0f0f0f 0%, #111827 100%);
+      font-family: 'Poppins', sans-serif;
+    }
+    .neon-shadow {
+      box-shadow: 0 0 10px #123458, 0 0 40px #0118D8;
+    }
+    .glow-hover:hover {
+      box-shadow: 0 0 10px #38bdf8, 0 0 30px #0ea5e9;
+    }
+    .hero-img {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
   </style>
 </head>
-<body class="text-white font-mono min-h-screen flex flex-col items-center justify-center p-6">
 
-  <h1 class="text-4xl font-bold text-center mb-6">🛒 E-Commerce Project</h1>
-  <p class="text-gray-400 text-center max-w-2xl mb-6">
-    Ini adalah proyek toko online modern yang saya bangun menggunakan <strong>React + Tailwind + Node.js + MongoDB</strong>.
-    Fitur lengkap seperti sistem cart, login, dashboard admin, dan API secure.
-  </p>
+<body class="text-white bg-gradient-to-br from-[#0f0f0f] to-[#1f2937] dark:bg-gray-50 dark:text-gray-900">
+  <!-- Dark/Light Toggle -->
+  <button onclick="toggleMode()" id="modeToggle" class="fixed bottom-4 right-4 z-50 bg-gray-800 text-white px-4 py-2 rounded shadow dark:bg-gray-200 dark:text-black">🌙/🌞</button>
 
-  <img src="https://via.placeholder.com/600x400?text=E-Commerce+Mockup" alt="E-Commerce Screenshot" class="rounded-xl shadow-lg mb-6">
+  <!-- Navbar -->
+  <nav class="flex justify-between items-center px-6 py-4 bg-[#0f178a] dark:bg-white shadow-xl sticky top-0 z-40">
+    <h1 class="text-2xl font-bold text-blue-400">demoShop</h1>
+    <ul class="flex gap-6 text-sm items-center text-white dark:text-gray-700">
+      <li><a href="#products" class="hover:text-blue-400">Produk</a></li>
+      <li><a href="#features" class="hover:text-blue-400">Fitur</a></li>
+      <li><a href="#faq" class="hover:text-blue-400">FAQ</a></li>
+      <li><a href="#contact" class="hover:text-blue-400">Kontak</a></li>
+      <li><a onclick="toggleLoginModal()" class="hover:text-blue-400">Masuk</a></li>
+      <li class="relative">
+        <a href="cart.html" class="hover:text-blue-400">🛒<span id="cart-count" ...></span></a>
+      </li>
+    </ul>
+  </nav>
 
-  <ul class="text-left text-gray-300 mb-6 space-y-2 max-w-md">
-    <li>✅ Register & Login System (JWT Auth)</li>
-    <li>✅ Dashboard Admin + CRUD Produk</li>
-    <li>✅ Shopping Cart & Checkout</li>
-    <li>✅ API dengan Node.js + MongoDB</li>
-    <li>✅ Desain Responsive + Dark Mode</li>
-  </ul>
+  <!-- Hero Section -->
+  <section class="text-center py-20 px-6" data-aos="fade-up">
+    <h2 class="text-5xl font-extrabold mb-4">Toko Online Masa Depan</h2>
+    <p class="text-gray-400 dark:text-gray-600 max-w-2xl mx-auto mb-8">UI futuristik, performa cepat, dan fitur lengkap untuk pengalaman belanja yang maksimal.</p>
+    <div class="flex justify-center gap-4 mb-10">
+      <a href="#products" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-full text-lg font-semibold text-white">Lihat Produk</a>
+      <a href="#subscribe" class="border border-blue-400 text-blue-600 hover:bg-blue-100 px-6 py-3 rounded-full text-lg font-semibold">Berlangganan</a>
+    </div>
+    <div class="mt-12 flex justify-center">
+      <img src="https://img.freepik.com/premium-vector/financial-literacy-set-personal-budget-development-money-planning-control-currency-balance_277904-33872.jpg?ga=GA1.1.21287504.1746169329&semt=ais_hybrid&w=740" alt="Ilustrasi" class="rounded-xl shadow-xl hero-img" />
+    </div>
+  </section>
 
-  <div class="flex flex-col sm:flex-row gap-4 mb-8">
-    <a href="https://github.com/fadhilmusafa/ecommerce-project" target="_blank" class="bg-blue-700 hover:bg-blue-800 px-6 py-3 rounded-xl transition shadow-md text-white">🔗 Lihat Source Code</a>
-    <a href="https://ecommerce-demo.fadhilmusafa.repl.co" target="_blank" class="bg-green-700 hover:bg-green-800 px-6 py-3 rounded-xl transition shadow-md text-white">🚀 Coba Demo Live</a>
+  <!-- Produk Terbaru -->
+  <section id="products" class="py-16 px-6">
+    <h3 class="text-3xl font-bold text-center mb-12">Produk Terbaru</h3>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto" data-aos="fade-up">
+      <script>
+        const sections = ['Elektronik', 'Fashion', 'Aksesoris'];
+        let output = '';
+        sections.forEach((section, index) => {
+          output += `<div class='col-span-full text-xl font-bold mt-10 mb-4 text-blue-400'>${section}</div>`;
+          for (let i = 1; i <= 3; i++) {
+            output += `
+              <div class='bg-[#0f178a] dark:bg-white p-6 rounded-xl shadow-xl glow-hover text-white dark:text-black' data-aos="zoom-in">
+                <img src='https://img.freepik.com/free-psd/shoes-sale-social-media-post-square-banner-template-design_505751-4888.jpg' class='rounded mb-4'>
+                <h4 class='text-xl font-semibold'>${section} Produk ${i}</h4>
+                <p class='text-gray-400 dark:text-gray-600 mb-2'>Deskripsi menarik untuk produk ${i}.</p>
+                <div class='flex items-center justify-between mt-2'>
+                  <a href="product-detail.html?id=${section}-${i}" class='bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded font-medium text-white'>Detail</a>
+                  <button onclick="addToCart('${section}-${i}')" class='text-yellow-400 text-lg'>★ 4.${i}⭐</button>
+                </div>
+              </div>`;
+          }
+        });
+        document.write(output);
+      </script>
+    </div>
+  </section>
+
+  <!-- Fitur -->
+<section id="features" class="py-12 px-6 bg-gradient-to-br from-[#0f0f0f] to-[#1f2937]">
+    <h3 class="text-3xl font-bold text-center mb-8">Kenapa Pilih Kami?</h3>
+    <div class="grid md:grid-cols-3 gap-6 text-center">
+      <div><h4 class="font-semibold text-lg mb-2">🔒 Aman & Terpercaya</h4><p>Transaksi terenkripsi dan akun aman.</p></div>
+      <div><h4 class="font-semibold text-lg mb-2">⚡ Super Cepat</h4><p>Load cepat dan antarmuka intuitif.</p></div>
+      <div><h4 class="font-semibold text-lg mb-2">📦 Pengiriman Cepat</h4><p>Kerjasama dengan ekspedisi lokal & internasional.</p></div>
+    </div>
+  </section>
+  
+  <!-- FAQ -->
+  <section id="faq" class="py-12 px-6 bg-gradient-to-br from-[#0f0f0f] to-[#1f2937]">
+    <h3 class="text-3xl font-bold text-center mb-8">Pertanyaan Umum</h3>
+    <div class="max-w-3xl mx-auto space-y-4">
+      <details><summary class="font-semibold cursor-pointer">Bagaimana cara belanja?</summary><p class="mt-2 text-gray-600">Pilih produk dan klik "Tambah ke Keranjang".</p></details>
+      <details><summary class="font-semibold cursor-pointer">Metode Pembayaran?</summary><p class="mt-2 text-gray-600">Transfer bank, e-wallet, dan QRIS.</p></details>
+    </div>
+  </section>
+  
+  <!-- Kontak -->
+  <section id="contact" class="py-12 px-6 bg-gradient-to-br from-[#0f0f0f] to-[#1f2937]">
+    <h3 class="text-3xl font-bold text-center mb-6">Hubungi Kami</h3>
+    <form class="max-w-lg mx-auto space-y-4">
+      <input type="text" placeholder="Nama" class="w-full p-2 border rounded" />
+      <input type="email" placeholder="Email" class="w-full p-2 border rounded" />
+      <textarea placeholder="Pesan" class="w-full p-2 border rounded"></textarea>
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Kirim</button>
+    </form>
+  </section>
+  
+
+  <!-- Footer -->
+  <footer class="py-8 text-center text-gray-500 text-sm bg-[#0f172a] dark:bg-white">
+    Dibuat oleh Fadhil Musafa • <a href="https://github.com/fadhilmusafa" class="underline hover:text-white dark:hover:text-black">GitHub</a>
+  </footer>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function toggleMode() {
+      const html = document.documentElement;
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    function toggleLoginModal() {
+  const modal = document.getElementById("loginModal");
+  const box = document.getElementById("loginModalBox");
+
+  if (modal.classList.contains("hidden")) {
+    // Tampilkan modal dengan animasi masuk
+    modal.classList.remove("hidden");
+    setTimeout(() => {
+      modal.classList.add("opacity-100");
+      box.classList.remove("scale-95", "opacity-0");
+      box.classList.add("scale-100", "opacity-100");
+    }, 10);
+  } else {
+    // Sembunyikan modal dengan animasi keluar
+    modal.classList.remove("opacity-100");
+    box.classList.remove("scale-100", "opacity-100");
+    box.classList.add("scale-95", "opacity-0");
+    setTimeout(() => {
+      modal.classList.add("hidden");
+    }, 300); // durasi animasi sama seperti transition
+  }
+}
+
+
+  </script>
+ <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 transition-opacity duration-300 hidden">
+    <div id="loginModalBox"
+      class="bg-gradient-to-br from-[#0f0f0f] via-[#0f178a] to-[#1f2937] p-8 rounded-xl w-full max-w-sm shadow-2xl text-white relative transform transition-all duration-300 scale-95 opacity-0">  
+      <button onclick="toggleLoginModal()" class="absolute top-2 right-2 text-white hover:text-red-400 text-2xl font-bold">&times;</button>
+      <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+      <form onsubmit="handleLogin(event)" class="space-y-4">
+        <div>
+          <label for="username" class="block mb-1">Username</label>
+          <input type="text" id="username" class="w-full p-2 rounded text-black border border-gray-300" required />
+        </div>
+        <div>
+          <label for="password" class="block mb-1">Password</label>
+          <input type="password" id="password" class="w-full p-2 rounded text-black border border-gray-300" required />
+        </div>
+        <button type="submit" class="bg-blue-600 hover:bg-blue-700 px-6 py-2 w-full rounded-full font-semibold">
+          Masuk
+        </button>
+      </form>
+    </div>
   </div>
-
-  <a href="https://fadhilmusafa.github.io" class="text-blue-500 hover:underline mt-4">← Kembali ke Beranda</a>
-
+  
 </body>
+
 </html>
