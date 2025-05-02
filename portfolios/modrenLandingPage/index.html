@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EliteHost - Premium Hosting</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <style>
+      :root {
+        --dark: #222831;
+        --gold: #948979;
+        --olive: #626f47;
+      }
+      body {
+        background-color: var(--dark);
+        color: white;
+        font-family: 'Inter', sans-serif;
+      }
+      .card-hover {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body class="overflow-x-hidden">
+        <!-- Scroll Animation Init -->
+        <script>AOS.init();</script>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center px-6" data-aos="fade-up">
+        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></lottie-player>
+        <div class="text-center">
+          <h1 class="text-4xl md:text-6xl font-bold text-[var(--gold)] mb-4">EliteHost</h1>
+          <p class="text-lg md:text-xl text-gray-300 mb-6">Web Hosting Premium untuk Performa dan Keamanan Maksimal</p>
+          <button class="bg-[var(--olive)] text-white px-6 py-3 rounded-full hover:bg-[var(--gold)] transition">Mulai Sekarang</button>
+        </div>
+      </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-6 bg-[var(--olive)]">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold mb-10 text-white">
+          Fitur Unggulan Kami
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="bg-[var(--dark)] p-6 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Kecepatan Maksimal
+            </h3>
+            <p class="text-gray-300">
+              Server NVMe dan jaringan premium memastikan website Anda selalu cepat.
+            </p>
+          </div>
+          <div class="bg-[var(--dark)] p-6 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Keamanan Tingkat Tinggi
+            </h3>
+            <p class="text-gray-300">
+              Firewall, Anti-DDoS, dan enkripsi canggih melindungi data Anda 24/7.
+            </p>
+          </div>
+          <div class="bg-[var(--dark)] p-6 rounded-xl shadow-lg">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Dukungan 24/7
+            </h3>
+            <p class="text-gray-300">
+              Tim support profesional kami siap membantu kapan saja Anda butuh.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section class="py-20 px-6 bg-[var(--dark)]">
+      <div class="max-w-5xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold text-[var(--gold)] mb-12">
+          Apa Kata Mereka
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-[var(--olive)] p-6 rounded-lg text-white">
+            <p class="italic mb-4">"Pelayanan cepat dan website saya tidak pernah down!"</p>
+            <h4 class="font-bold">— Rina, Blogger</h4>
+          </div>
+          <div class="bg-[var(--olive)] p-6 rounded-lg text-white">
+            <p class="italic mb-4">"EliteHost benar-benar hosting profesional dengan harga masuk akal."</p>
+            <h4 class="font-bold">— Dimas, Web Developer</h4>
+          </div>
+          <div class="bg-[var(--olive)] p-6 rounded-lg text-white">
+            <p class="italic mb-4">"Support-nya sangat membantu saat saya migrasi dari penyedia lain."</p>
+            <h4 class="font-bold">— Sari, UMKM Owner</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="py-20 px-6 bg-[var(--olive)]">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold text-white mb-12">
+          Artikel & Tips Hosting
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="bg-[var(--dark)] p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Cara Memilih Hosting Terbaik
+            </h3>
+            <p class="text-gray-300 mb-4">
+              Panduan lengkap untuk memilih hosting sesuai kebutuhan website Anda.
+            </p>
+            <a href="#" class="text-[var(--gold)] hover:underline">Baca Selengkapnya</a>
+          </div>
+          <div class="bg-[var(--dark)] p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Tips Keamanan Website
+            </h3>
+            <p class="text-gray-300 mb-4">
+              Langkah-langkah penting untuk menjaga website Anda tetap aman dari serangan.
+            </p>
+            <a href="#" class="text-[var(--gold)] hover:underline">Baca Selengkapnya</a>
+          </div>
+          <div class="bg-[var(--dark)] p-6 rounded-lg shadow">
+            <h3 class="text-xl font-bold text-[var(--gold)] mb-2">
+              Performa Website Maksimal
+            </h3>
+            <p class="text-gray-300 mb-4">
+              Optimasi performa website Anda dengan tips ringan namun ampuh.
+            </p>
+            <a href="#" class="text-[var(--gold)] hover:underline">Baca Selengkapnya</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="py-16 px-6 bg-[var(--olive)] text-center">
+      <h2 class="text-3xl font-semibold text-white mb-4">Bingung Pilih Paket?</h2>
+      <p class="text-gray-200 mb-6">Hubungi tim kami dan kami akan bantu sesuaikan dengan kebutuhan Anda.</p>
+      <button class="bg-[var(--dark)] text-white px-6 py-2 rounded-full hover:bg-[var(--gold)] transition">
+        Hubungi Kami
+      </button>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="py-20 px-6" data-aos="fade-up">
+      <div class="max-w-6xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-semibold text-[var(--gold)] mb-12">
+          Paket Hosting
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div class="card-hover border border-[var(--olive)] p-8 rounded-xl bg-[var(--dark)]">
+            <h3 class="text-xl font-bold text-white mb-4">Starter</h3>
+            <p class="text-gray-400 mb-6">Untuk website pribadi atau blog</p>
+            <p class="text-3xl font-bold text-[var(--gold)] mb-6">Rp 25K/bulan</p>
+            <ul class="text-gray-300 space-y-2 mb-6">
+              <li>1 Website</li>
+              <li>10GB SSD</li>
+              <li>SSL Gratis</li>
+            </ul>
+            <button class="bg-[var(--olive)] text-white px-6 py-2 rounded-full hover:bg-[var(--gold)] transition">
+              Pilih Paket
+            </button>
+          </div>
+          <div class="card-hover border border-[var(--gold)] p-8 rounded-xl bg-[var(--dark)] shadow-lg scale-105">
+            <h3 class="text-xl font-bold text-white mb-4">Pro</h3>
+            <p class="text-gray-400 mb-6">Ideal untuk bisnis dan toko online</p>
+            <p class="text-3xl font-bold text-[var(--gold)] mb-6">Rp 75K/bulan</p>
+            <ul class="text-gray-300 space-y-2 mb-6">
+              <li>5 Website</li>
+              <li>50GB SSD</li>
+              <li>Domain Gratis</li>
+            </ul>
+            <button class="bg-[var(--gold)] text-white px-6 py-2 rounded-full hover:bg-[var(--olive)] transition">
+              Pilih Paket
+            </button>
+          </div>
+          <div class="card-hover border border-[var(--olive)] p-8 rounded-xl bg-[var(--dark)]">
+            <h3 class="text-xl font-bold text-white mb-4">Enterprise</h3>
+            <p class="text-gray-400 mb-6">Untuk perusahaan dan kebutuhan skala besar</p>
+            <p class="text-3xl font-bold text-[var(--gold)] mb-6">Rp 150K/bulan</p>
+            <ul class="text-gray-300 space-y-2 mb-6">
+              <li>Unlimited Website</li>
+              <li>200GB SSD</li>
+              <li>Support Prioritas</li>
+            </ul>
+            <button class="bg-[var(--olive)] text-white px-6 py-2 rounded-full hover:bg-[var(--gold)] transition">
+              Pilih Paket
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- Statistik Section -->
+     <section class="py-20 px-6 bg-[var(--dark)]" data-aos="fade-up">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-center">
+          <div>
+            <h3 class="text-4xl font-bold text-[var(--gold)]">10K+</h3>
+            <p class="text-gray-400">Website Aktif</p>
+          </div>
+          <div>
+            <h3 class="text-4xl font-bold text-[var(--gold)]">99.9%</h3>
+            <p class="text-gray-400">Uptime Server</p>
+          </div>
+          <div>
+            <h3 class="text-4xl font-bold text-[var(--gold)]">500+</h3>
+            <p class="text-gray-400">Review Bintang 5</p>
+          </div>
+          <div>
+            <h3 class="text-4xl font-bold text-[var(--gold)]">24/7</h3>
+            <p class="text-gray-400">Dukungan Pelanggan</p>
+          </div>
+        </div>
+      </section>
+
+         <!-- FAQ Section -->
+    <section class="py-20 px-6 bg-[var(--olive)]" data-aos="fade-up">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-semibold text-[var(--gold)] mb-10">Pertanyaan Umum</h2>
+        <div class="space-y-6 text-left">
+          <div class="bg-[var(--dark)] p-4 rounded-lg shadow">
+            <h3 class="font-bold text-white">Apa itu EliteHost?</h3>
+            <p class="text-gray-300 mt-2">EliteHost adalah penyedia hosting premium dengan performa dan keamanan terbaik untuk kebutuhan web Anda.</p>
+          </div>
+          <div class="bg-[var(--dark)] p-4 rounded-lg shadow">
+            <h3 class="font-bold text-white">Apakah ada garansi uang kembali?</h3>
+            <p class="text-gray-300 mt-2">Kami menawarkan garansi uang kembali 30 hari jika Anda tidak puas dengan layanan kami.</p>
+          </div>
+          <div class="bg-[var(--dark)] p-4 rounded-lg shadow">
+            <h3 class="font-bold text-white">Apakah layanan tersedia 24/7?</h3>
+            <p class="text-gray-300 mt-2">Ya, tim dukungan kami tersedia 24 jam sehari, 7 hari seminggu.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+     <!-- Login/Register Section -->
+     <section class="py-20 px-6 bg-[var(--olive)] text-white" id="auth" data-aos="fade-up">
+        <div class="max-w-3xl mx-auto grid md:grid-cols-2 gap-8">
+          <div>
+            <h2 class="text-2xl font-bold mb-4">Login</h2>
+            <form class="space-y-4">
+              <input type="email" placeholder="Email" class="w-full p-3 rounded bg-[var(--dark)] text-white placeholder-gray-300" required>
+              <input type="password" placeholder="Password" class="w-full p-3 rounded bg-[var(--dark)] text-white placeholder-gray-300" required>
+              <button type="submit" class="bg-[var(--gold)] px-6 py-2 rounded-full hover:bg-white hover:text-[var(--dark)] transition">Login</button>
+            </form>
+          </div>
+          <div>
+            <h2 class="text-2xl font-bold mb-4">Daftar</h2>
+            <form class="space-y-4">
+              <input type="text" placeholder="Nama Lengkap" class="w-full p-3 rounded bg-[var(--dark)] text-white placeholder-gray-300" required>
+              <input type="email" placeholder="Email" class="w-full p-3 rounded bg-[var(--dark)] text-white placeholder-gray-300" required>
+              <input type="password" placeholder="Password" class="w-full p-3 rounded bg-[var(--dark)] text-white placeholder-gray-300" required>
+              <button type="submit" class="bg-[var(--gold)] px-6 py-2 rounded-full hover:bg-white hover:text-[var(--dark)] transition">Daftar</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+   <!-- Contact Form -->
+   <section class="py-20 px-6 bg-[var(--dark)]" id="kontak" data-aos="fade-up">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl font-semibold text-[var(--gold)] mb-6">Hubungi Kami</h2>
+      <form class="space-y-4">
+        <input type="text" placeholder="Nama" class="w-full p-3 rounded bg-[var(--olive)] text-white placeholder-gray-300" required>
+        <input type="email" placeholder="Email" class="w-full p-3 rounded bg-[var(--olive)] text-white placeholder-gray-300" required>
+        <textarea placeholder="Pesan" class="w-full p-3 rounded bg-[var(--olive)] text-white placeholder-gray-300" rows="5" required></textarea>
+        <button type="submit" class="bg-[var(--gold)] text-white px-6 py-2 rounded-full hover:bg-[var(--olive)] transition">Kirim Pesan</button>
+      </form>
+    </div>
+  </section>
+
+<!-- Newsletter Section -->
+<section class="py-20 px-6 bg-[var(--olive)] text-white" data-aos="fade-up">
+    <div class="max-w-2xl mx-auto text-center">
+      <h2 class="text-3xl font-semibold mb-4">Dapatkan Info Terbaru</h2>
+      <p class="mb-6 text-gray-300">Langganan newsletter kami untuk update promosi dan fitur baru.</p>
+      <form class="flex flex-col sm:flex-row gap-4 justify-center">
+        <input type="email" placeholder="Email Anda" class="p-3 rounded w-full sm:w-auto bg-[var(--dark)] text-white placeholder-gray-400" required>
+        <button type="submit" class="bg-[var(--gold)] px-6 py-3 rounded-full hover:bg-white hover:text-[var(--dark)] transition">Langganan</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Social Icons -->
+  <section class="bg-[var(--dark)] py-6 text-center">
+    <div class="flex justify-center gap-6">
+      <a href="#" class="text-[var(--gold)] hover:text-white transition"><i class="fab fa-facebook fa-2x"></i></a>
+      <a href="#" class="text-[var(--gold)] hover:text-white transition"><i class="fab fa-twitter fa-2x"></i></a>
+      <a href="#" class="text-[var(--gold)] hover:text-white transition"><i class="fab fa-instagram fa-2x"></i></a>
+      <a href="#" class="text-[var(--gold)] hover:text-white transition"><i class="fab fa-linkedin fa-2x"></i></a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-[var(--dark)] text-center text-gray-500 text-sm">
+    <p>&copy; 2025 EliteHost. All rights <a href="https://fadhilmusafa.github.io/">fadhil musafa</a>.</p>
+  </footer>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>
