@@ -1,8 +1,31 @@
-<html>
+<!DOCTYPE html>
+<html lang="id">
 <head>
-  <title>Halaman web saya</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fadhil Musafa — Portofolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-  <body>
-    <h1>test</h1>
-  </body>
+<body class="bg-[#0f0f0f] text-white min-h-screen flex flex-col items-center justify-center font-sans">
+
+  <h1 class="text-4xl md:text-5xl font-bold mb-2">Fadhil Musafa</h1>
+  <p class="text-gray-400 mb-10 text-center text-sm md:text-base">
+    Junior Web Developer | Software Engineer | Bug Hunter
+  </p>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-80 md:w-[32rem]">
+    <a href="/portfolios/ecommerce/" class="btn">📦 E-Commerce</a>
+    <a href="/portfolios/uiux/" class="btn">🎨 UI/UX</a>
+    <a href="/portfolios/bugbounty/" class="btn">🛡️ Bug Bounty</a>
+    <a href="/portfolios/mobileapp/" class="btn">📱 Mobile App</a>
+    <a href="/portfolios/testing/" class="btn">🧪 Web Testing</a>
+    <a href="/assets/cv-fadhilmusafa.pdf" class="btn">📃 Lihat CV</a>
+  </div>
+
+  <style>
+    .btn {
+      @apply bg-[#123458] hover:bg-[#0118D8] text-white px-6 py-3 rounded-2xl text-center transition-all duration-300 shadow-lg hover:scale-105;
+    }
+  </style>
+</body>
 </html>
