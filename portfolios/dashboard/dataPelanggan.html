@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manajemen Data Pelanggan</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #EFEEEA;
+      --color-dark: #222831;
+      --color-accent: #A2B9A7;
+      --color-white: #ffffff;
+      --color-success: #28a745;
+      --color-danger: #dc3545;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-dark);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background-color: #181818;
+      color: #eaeaea;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    .notification {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .notification.success {
+      background-color: var(--color-success);
+      color: white;
+    }
+
+    .notification.error {
+      background-color: var(--color-danger);
+      color: white;
+    }
+    .sidebar {
+      background-color: var(--color-dark);
+      min-height: 100vh;
+      color: var(--color-white);
+      position: sticky;
+      top: 0;
+    }
+
+    .sidebar a {
+      color: var(--color-white);
+      text-decoration: none;
+      display: block;
+      padding: 12px 16px;
+      transition: background 0.2s;
+    }
+
+    .sidebar a:hover, .sidebar a.active {
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+    }
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 sidebar d-flex flex-column">
+      <h5 class="text-white text-center mt-3">Menu</h5>
+      <a href="dasboard.html" class="active">Dashboard</a>
+      <a href="admin.html">Pengaturan</a>
+      <div class="mt-auto p-3">
+        <button class="btn btn-outline-light w-100" onclick="toggleDarkMode()">Toggle Mode</button>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-10 p-4">
+      <h3 class="mb-4">Manajemen Data Pelanggan</h3>
+
+      <!-- Notification -->
+      <div id="notification" class="notification"></div>
+
+      <!-- Filter dan Pencarian -->
+      <div class="mb-4">
+        <input type="text" class="form-control" id="searchInput" placeholder="Cari pelanggan..." onkeyup="filterData()">
+      </div>
+
+      <!-- Tabel Data Pelanggan -->
+      <div class="table-responsive">
+        <table class="table table-bordered" id="customerTable">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Email</th>
+              <th>No. HP</th>
+              <th>Negara</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="customerData">
+            <!-- Data Pelanggan akan muncul disini -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tombol Tambah Pelanggan -->
+      <button class="btn btn-primary" onclick="openForm()">Tambah Pelanggan</button>
+
+      <!-- Form Pengeditan dan Penambahan Pelanggan -->
+      <div id="customerForm" class="mt-4" style="display: none;">
+        <h5 id="formTitle">Tambah Pelanggan</h5>
+        <form id="editForm">
+          <input type="hidden" id="editId">
+          <div class="mb-3">
+            <label for="customerName" class="form-label">Nama</label>
+            <input type="text" class="form-control" id="customerName" required>
+          </div>
+          <div class="mb-3">
+            <label for="customerEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="customerEmail" required>
+          </div>
+          <div class="mb-3">
+            <label for="customerPhone" class="form-label">No. HP</label>
+            <input type="text" class="form-control" id="customerPhone" required>
+          </div>
+          <div class="mb-3">
+            <label for="customerCountry" class="form-label">Negara</label>
+            <input type="text" class="form-control" id="customerCountry" required>
+          </div>
+          <button type="submit" class="btn btn-success">Simpan</button>
+          <button type="button" class="btn btn-secondary" onclick="closeForm()">Batal</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let customers = [
+    { id: 1, name: "Sari Putri", email: "sari@example.com", phone: "081234567890", country: "Indonesia" },
+    { id: 2, name: "Agus Hidayat", email: "agus@example.com", phone: "089876543210", country: "Indonesia" },
+    { id: 3, name: "Ali Fauzi", email: "ali@example.com", phone: "085643219876", country: "Malaysia" }
+  ];
+
+  function renderTable() {
+    const tbody = document.getElementById('customerData');
+    tbody.innerHTML = '';
+    customers.forEach(customer => {
+      const row = document.createElement('tr');
+      row.dataset.id = customer.id;
+      row.innerHTML = `
+        <td>${customer.name}</td>
+        <td>${customer.email}</td>
+        <td>${customer.phone}</td>
+        <td>${customer.country}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" onclick="editCustomer(${customer.id})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${customer.id})">Hapus</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function filterData() {
+    const searchInput = document.getElementById('searchInput').value.toLowerCase();
+    const filteredCustomers = customers.filter(customer =>
+      customer.name.toLowerCase().includes(searchInput) ||
+      customer.email.toLowerCase().includes(searchInput) ||
+      customer.phone.toLowerCase().includes(searchInput) ||
+      customer.country.toLowerCase().includes(searchInput)
+    );
+    renderFilteredData(filteredCustomers);
+  }
+
+  function renderFilteredData(filteredCustomers) {
+    const tbody = document.getElementById('customerData');
+    tbody.innerHTML = '';
+    filteredCustomers.forEach(customer => {
+      const row = document.createElement('tr');
+      row.dataset.id = customer.id;
+      row.innerHTML = `
+        <td>${customer.name}</td>
+        <td>${customer.email}</td>
+        <td>${customer.phone}</td>
+        <td>${customer.country}</td>
+        <td>
+          <button class="btn btn-warning btn-sm" onclick="editCustomer(${customer.id})">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${customer.id})">Hapus</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  }
+
+  function openForm() {
+    document.getElementById('customerForm').style.display = 'block';
+    document.getElementById('formTitle').innerText = 'Tambah Pelanggan';
+    document.getElementById('editForm').reset();
+  }
+
+  function closeForm() {
+    document.getElementById('customerForm').style.display = 'none';
+  }
+
+  function editCustomer(id) {
+    const customer = customers.find(c => c.id === id);
+    if (customer) {
+      document.getElementById('editId').value = customer.id;
+      document.getElementById('customerName').value = customer.name;
+      document.getElementById('customerEmail').value = customer.email;
+      document.getElementById('customerPhone').value = customer.phone;
+      document.getElementById('customerCountry').value = customer.country;
+      document.getElementById('customerForm').style.display = 'block';
+      document.getElementById('formTitle').innerText = 'Edit Pelanggan';
+    }
+  }
+
+  function deleteCustomer(id) {
+    if (confirm('Apakah Anda yakin ingin menghapus pelanggan ini?')) {
+      customers = customers.filter(customer => customer.id !== id);
+      renderTable();
+      showNotification('success', 'Pelanggan berhasil dihapus.');
+    }
+  }
+
+  document.getElementById('editForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const id = document.getElementById('editId').value;
+    const name = document.getElementById('customerName').value;
+    const email = document.getElementById('customerEmail').value;
+    const phone = document.getElementById('customerPhone').value;
+    const country = document.getElementById('customerCountry').value;
+
+    if (id) {
+      // Edit existing customer
+      const customer = customers.find(c => c.id === parseInt(id));
+      if (customer) {
+        customer.name = name;
+        customer.email = email;
+        customer.phone = phone;
+        customer.country = country;
+        showNotification('success', 'Pelanggan berhasil diperbarui.');
+      }
+    } else {
+      // Add new customer
+      const newCustomer = { 
+        id: customers.length + 1, 
+        name, 
+        email, 
+        phone, 
+        country 
+      };
+      customers.push(newCustomer);
+      showNotification('success', 'Pelanggan baru berhasil ditambahkan.');
+    }
+
+    renderTable();
+    closeForm();
+  });
+
+  function showNotification(type, message) {
+    const notification = document.getElementById('notification');
+    notification.classList.add(type === 'success' ? 'success' : 'error');
+    notification.innerHTML = message;
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+      notification.classList.remove(type === 'success' ? 'success' : 'error');
+    }, 3000);
+  }
+
+  // Initial render
+  renderTable();
+</script>
+</body>
+</html>

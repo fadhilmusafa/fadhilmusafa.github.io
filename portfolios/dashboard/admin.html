@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengaturan Profil - Dashboard Admin</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #EFEEEA;
+      --color-dark: #222831;
+      --color-accent: #A2B9A7;
+      --color-white: #ffffff;
+      --color-success: #28a745;
+      --color-danger: #dc3545;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-dark);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .dark-mode {
+      background-color: #181818;
+      color: #eaeaea;
+    }
+
+    .header {
+      background: linear-gradient(to right, var(--color-accent), #cce3d5);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .card {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    .profile-pic {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid var(--color-accent);
+    }
+
+    .notification {
+      display: none;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .notification.success {
+      background-color: var(--color-success);
+      color: white;
+    }
+
+    .notification.error {
+      background-color: var(--color-danger);
+      color: white;
+    }
+
+/* Sidebar Styles */
+.sidebar {
+  background-color: var(--color-dark);
+  height: 100vh;
+  padding: 20px;
+}
+
+.sidebar a {
+  color: var(--color-white);
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.sidebar a:hover {
+  background-color: var(--color-accent);
+}
+
+.sidebar .active {
+  background-color: var(--color-accent);
+}
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 sidebar d-flex flex-column">
+        <h5 class="text-white text-center mt-3">Menu</h5>
+        <a href="dasboard.html" class="active"><i class="fas fa-home me-2"></i>Dashboard</a>
+
+
+        <div class="mt-auto p-3">
+          <button class="btn btn-outline-light w-100" onclick="toggleDarkMode()">Toggle Mode</button>
+        </div>
+      </nav>
+    <main class="col-md-10 p-4">
+      <div class="header rounded shadow-sm mb-4">
+        <h3 class="m-0">Pengaturan Profil</h3>
+        <div>
+          <button class="btn btn-light"><i class="fas fa-user-circle"></i></button>
+        </div>
+      </div>
+
+      <!-- Profile Settings Form -->
+      <div class="row g-3">
+        <div class="col-md-12">
+          <div class="card p-4">
+            <h5>Edit Profil Anda</h5>
+
+            <!-- Notification -->
+            <div id="notification" class="notification"></div>
+
+            <form id="profileForm">
+              <!-- Profile Picture -->
+              <div class="mb-3 text-center">
+                <img src="https://via.placeholder.com/120" alt="Foto Profil" class="profile-pic mb-3" id="profilePic">
+                <input type="file" class="form-control" id="profilePicture" accept="image/*">
+              </div>
+              <!-- Nama -->
+              <div class="mb-3">
+                <label for="editNama" class="form-label">Nama</label>
+                <input type="text" class="form-control" id="editNama" value="Sari Putri">
+              </div>
+              <!-- Email -->
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="editEmail" value="sari@example.com">
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="editPassword" class="form-label">Password Baru</label>
+                <input type="password" class="form-control" id="editPassword" placeholder="Masukkan password baru (opsional)">
+              </div>
+              <div class="mb-3">
+                <label for="confirmPassword" class="form-label">Konfirmasi Password</label>
+                <input type="password" class="form-control" id="confirmPassword" placeholder="Konfirmasi password baru">
+              </div>
+              <!-- Submit Button -->
+              <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Dark Mode Toggle Function
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+
+  // Handle profile picture change
+  document.getElementById('profilePicture').addEventListener('change', function(event) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('profilePic').src = e.target.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  });
+
+  // Handle form submission (this is just an example)
+  document.getElementById('profileForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const nama = document.getElementById('editNama').value;
+    const email = document.getElementById('editEmail').value;
+    const password = document.getElementById('editPassword').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Validasi password
+    if (password && password !== confirmPassword) {
+      showNotification('error', 'Password dan konfirmasi password tidak cocok.');
+      return;
+    }
+
+    // Simulasi penyimpanan perubahan
+    localStorage.setItem('adminData', JSON.stringify({ nama, email, password }));
+    
+    // Tampilkan notifikasi sukses
+    showNotification('success', 'Perubahan profil berhasil disimpan!');
+  });
+
+  // Menampilkan notifikasi
+  function showNotification(type, message) {
+    const notification = document.getElementById('notification');
+    notification.classList.add(type === 'success' ? 'success' : 'error');
+    notification.innerHTML = message;
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+      notification.classList.remove(type === 'success' ? 'success' : 'error');
+    }, 3000);
+  }
+
+  // Mengisi data dari LocalStorage jika ada
+  window.onload = () => {
+    const adminData = JSON.parse(localStorage.getItem('adminData'));
+    if (adminData) {
+      document.getElementById('editNama').value = adminData.nama;
+      document.getElementById('editEmail').value = adminData.email;
+    }
+  };
+</script>
+</body>
+</html>
